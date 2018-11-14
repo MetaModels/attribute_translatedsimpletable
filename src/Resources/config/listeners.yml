@@ -1,0 +1,17 @@
+services:
+   metamodels.attribute_translatedsimpletable.listeners.translated_alias_options:
+      class: MetaModels\AttributeTranslatedSimpleTableBundle\EventListener\DcGeneral\Table\BackendTableListener
+      arguments:
+        - '@cca.dc-general.scope-matcher'
+        - '@metamodels.factory'
+        - '@event_dispatcher'
+      tags:
+        - name: kernel.event_listener
+          event: dc-general.view.contao2backend.build-widget
+          method: fillExtraData
+        - name: kernel.event_listener
+          event: dc-general.view.contao2backend.decode-property-value-for-widget
+          method: loadValues
+        - name: kernel.event_listener
+          event: dc-general.view.contao2backend.encode-property-value-from-widget
+          method: saveValues

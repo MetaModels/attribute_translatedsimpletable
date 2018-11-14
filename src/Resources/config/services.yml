@@ -1,0 +1,8 @@
+services:
+  metamodels.attribute_translatedsimpletable.factory:
+    class: MetaModels\AttributeTranslatedSimpleTableBundle\Attribute\AttributeTypeFactory
+    arguments:
+      - "@database_connection"
+      - "@event_dispatcher"
+    tags:
+      - { name: metamodels.attribute_factory }
