@@ -13,7 +13,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="MetaModels attribute to display the distance between two geolocation points tests">
+        <testsuite name="MetaModels translated simple table">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

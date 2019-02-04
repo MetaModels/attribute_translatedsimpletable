@@ -1,21 +1,21 @@
 <?php
 
 /**
- * The MetaModels extension allows the creation of multiple collections of custom items,
- * each with its own unique set of selectable attributes, with attribute extendability.
- * The Front-End modules allow you to build powerful listing and filtering of the
- * data in each collection.
+ * This file is part of MetaModels/attribute_translatedsimpletable.
+ *
+ * (c) 2012-2019 The MetaModels team.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * This project is provided in good faith and hope to be usable by anyone.
  *
  * @package    MetaModels
- * @subpackage AttributeTranslatedSimpleTableBundle
- * @author     David Maack <david.maack@arcor.de>
+ * @subpackage AttributeTranslatedTableText
  * @author     Stefan Heimes <stefan_heimes@hotmail.com>
- * @author     Christian Schiffler <c.schiffler@cyberspectrum.de>
- * @author     Andreas Isaak <andy.jared@googlemail.com>
- * @author     David Greminger <david.greminger@1up.io>
- * @author     Andreas Dziemba <adziemba@web.de>
- * @copyright  2012-2018 The MetaModels team.
- * @license    https://github.com/MetaModels/attribute_translatedsimpletable/blob/master/LICENSE LGPL-3.0-or-later
+ * @author     David Molineus <david.molineus@netzmacht.de>
+ * @copyright  2012-2019 The MetaModels team.
+ * @license    https://github.com/MetaModels/attribute_translatedtabletext/blob/master/LICENSE LGPL-3.0-or-later
  * @filesource
  */
 
@@ -84,9 +84,12 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
      */
     public function getAttributeSettingNames()
     {
-        return array_merge(parent::getAttributeSettingNames(), array(
-            'translatedtabletext_cols',
-        ));
+        return array_merge(
+            parent::getAttributeSettingNames(),
+            [
+                'translatedtabletext_cols',
+            ]
+        );
     }
 
     /**
@@ -102,7 +105,7 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
     /**
      * {@inheritDoc}
      */
-    public function getFieldDefinition($arrOverrides = array())
+    public function getFieldDefinition($arrOverrides = [])
     {
         // Build DCA.
         $arrFieldDef                           = parent::getFieldDefinition($arrOverrides);
@@ -115,13 +118,13 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
     }
 
     /**
-     * Build the where clause
+     * Build the where clause.
      *
-     * @param QueryBuilder $queryBuilder
-     * @param $mixIds
-     * @param null         $strLangCode
-     * @param null         $intRow
-     * @param null         $varCol
+     * @param QueryBuilder      $queryBuilder The query builder
+     * @param array|string|null $mixIds       The item ids as array or csv list.
+     * @param string|null       $strLangCode  The language code.
+     * @param int|null          $intRow       The requested row.
+     * @param mixed             $varCol       The requested column.
      */
     protected function buildWhere(
         QueryBuilder $queryBuilder,
@@ -129,7 +132,7 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
         $strLangCode = null,
         $intRow = null,
         $varCol = null
-    ){
+    ) {
         $queryBuilder
             ->andWhere('att_id = :att_id')
             ->setParameter('att_id', (int) $this->get('id'));
@@ -166,7 +169,7 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
     public function valueToWidget($varValue)
     {
         if (!is_array($varValue)) {
-            return array();
+            return [];
         }
 
         // Get max
@@ -189,7 +192,7 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
         }
 
         // Rebuild the array for contao widget.
-        $widgetValue = array();
+        $widgetValue = [];
         foreach ($varValue as $row) {
             foreach ($row as $key => $col) {
                 $widgetValue[$col['row']][$key] = $col['value'];
@@ -208,11 +211,11 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
             return null;
         }
 
-        $newValue = array();
+        $newValue = [];
         foreach ($varValue as $k => $row) {
             foreach ($row as $kk => $col) {
                 // Don't save empty strings.
-                if($col === ''){
+                if ($col === '') {
                     continue;
                 }
                 $newValue[$k][$kk]['value'] = $col;
@@ -237,15 +240,15 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
      */
     protected function getSetValues($arrCell, $intId, $strLangCode)
     {
-        return array(
+        return [
             'tstamp'   => time(),
-            'value'    => (string)$arrCell['value'],
+            'value'    => (string) $arrCell['value'],
             'att_id'   => $this->get('id'),
-            'row'      => (int)$arrCell['row'],
+            'row'      => (int) $arrCell['row'],
             'col'      => $arrCell['col'],
             'item_id'  => $intId,
             'langcode' => $strLangCode,
-        );
+        ];
     }
 
     /**
@@ -262,7 +265,7 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
         $this->buildWhere($queryBuilder, $arrIds, $strLangCode);
 
         $statement = $queryBuilder->execute();
-        $arrReturn = array();
+        $arrReturn = [];
         while ($value = $statement->fetch(\PDO::FETCH_ASSOC)) {
             $arrReturn[$value['item_id']][$value['row']][$value['col']] = $value;
         }
@@ -275,9 +278,9 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function searchForInLanguages($strPattern, $arrLanguages = array())
+    public function searchForInLanguages($strPattern, $arrLanguages = [])
     {
-        return array();
+        return [];
     }
 
     /**
@@ -341,7 +344,7 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
      */
     public function getFilterOptions($idList, $usedOnly, &$arrCount = null)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -368,7 +371,7 @@ class TranslatedSimpleTable extends Base implements ITranslated, IComplex
 
         // Second round, fetch fallback languages if not all items could be resolved.
         if ((count($arrReturn) < count($arrIds)) && ($strActiveLanguage != $strFallbackLanguage)) {
-            $arrFallbackIds = array();
+            $arrFallbackIds = [];
             foreach ($arrIds as $intId) {
                 if (empty($arrReturn[$intId])) {
                     $arrFallbackIds[] = $intId;
