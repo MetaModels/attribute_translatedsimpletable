@@ -66,8 +66,7 @@
   "extra": {
     "contao-manager-plugin": "MetaModels\\AttributeTranslatedSimpleTableBundle\\ContaoManager\\Plugin",
     "branch-alias": {
-      "dev-master":  "2.0.x-dev",
-      "dev-feature/contao4": "2.1.x-dev"
+      "dev-master":  "2.1.x-dev"
     }
   },
   "prefer-stable": true,
