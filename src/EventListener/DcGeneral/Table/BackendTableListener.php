@@ -21,6 +21,7 @@
 
 namespace MetaModels\AttributeTranslatedSimpleTableBundle\EventListener\DcGeneral\Table;
 
+use Contao\StringUtil;
 use ContaoCommunityAlliance\Contao\Bindings\ContaoEvents;
 use ContaoCommunityAlliance\Contao\Bindings\Events\System\LoadLanguageFileEvent;
 use ContaoCommunityAlliance\DcGeneral\Contao\RequestScopeDeterminator;
@@ -134,7 +135,7 @@ class BackendTableListener
         }
 
         $arrRowClasses = [];
-        foreach (\array_keys(\deserialize($arrValues)) as $strLangcode) {
+        foreach (\array_keys(StringUtil::deserialize($arrValues)) as $strLangcode) {
             $arrRowClasses[] = ($strLangcode == $objMetaModel->getFallbackLanguage())
                 ? 'fallback_language'
                 : 'normal_language';
@@ -213,7 +214,7 @@ class BackendTableListener
             }
         }
 
-        $arrLangValues = \deserialize($varValue);
+        $arrLangValues = StringUtil::deserialize($varValue);
         if (!$objMetaModel->isTranslated()) {
             // If we have an array, return the first value and exit, if not an array, return the value itself.
             if (\is_array($arrLangValues)) {
@@ -275,7 +276,7 @@ class BackendTableListener
             return;
         }
 
-        $arrLangValues = \deserialize($varValue);
+        $arrLangValues = StringUtil::deserialize($varValue);
         $arrOutput     = [];
 
         foreach ($arrLangValues as $varSubValue) {
