@@ -1,11 +1,11 @@
 {
   "transifex": {
     "project": "metamodels",
-    "prefix": "attribute_geodistance-",
+    "prefix": "attribute_translatedsimpletable-",
     "languages_cto": "src/Resources/contao/languages",
     "languages_tx": ".tx",
     "php-file-header": [
-      "This file is part of MetaModels/attribute_geodistance.",
+      "This file is part of MetaModels/attribute_translatedsimpletable.",
       "",
       "(c) 2012-$$year$$ The MetaModels team.",
       "",
@@ -20,7 +20,7 @@
       "Last-updated: $$lastchanged$$",
       "",
       "@copyright 2012-$$year$$ The MetaModels team.",
-      "@license   https://github.com/MetaModels/attribute_geodistance/blob/master/LICENSE LGPL-3.0-or-later",
+      "@license   https://github.com/MetaModels/attribute_translatedsimpletable/blob/master/LICENSE LGPL-3.0-or-later",
       "@link      https://www.transifex.com/metamodels/public/",
       "@link      https://www.transifex.com/signup/?join_project=metamodels"
     ]
